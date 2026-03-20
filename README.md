@@ -4,11 +4,11 @@ Portfolio personal estático e internacionalizado, desarrollado con Vanilla JS y
 
 ## 🌟 Características Principales
 
-- **Internacionalización (i18n):** Soporte bilingüe (Español e Inglés) a través de `index.html` e `index-en.html`, con un selector de idioma integrado en la barra de navegación.
-- **Slider Interactivo:** Carrusel personalizado para visualizar proyectos.
-- **Responsive Design:** Adaptable a todo tipo de pantallas (móvil, tablet, escritorio).
-- **Tooling Moderno:** Empaquetado y optimización automática a través de Vite.
-- **Despliegue Asistido:** CI/CD automático conectado a AWS S3.
+- **Internacionalización (i18n):** Soporte bilingüe (Español e Inglés) con selector de idioma en la barra de navegación.
+- **Slider Interactivo:** Carrusel personalizado para visualizar proyectos destacados.
+- **Responsive Design:** Diseño moderno y adaptable (móvil, tablet, escritorio).
+- **Tooling Moderno:** Empaquetado optimizado con Vite y Tailwind CSS.
+- **Despliegue Asistido:** CI/CD automático conectado a AWS S3 + CloudFront.
 
 ## 🚀 Quick Start
 
@@ -36,17 +36,17 @@ npm run preview
 
 ```
 Portfolio/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml      # CI/CD automático para AWS
-├── index.html              # Página principal (Español)
-├── index-en.html           # Página principal (Inglés)
-├── package.json            # Dependencias y scripts
-├── vite.config.js          # Configuración de Vite (Múltiples entradas HTML)
+├── .github/workflows/
+│   └── deploy.yml          # CI/CD para AWS
+├── public/                 # Archivos estáticos (CV, etc.)
+├── index.html              # Página principal (ES)
+├── index-en.html           # Página principal (EN)
+├── package.json            # Scripts y dependencias
+├── vite.config.js          # Configuración de Vite
 └── src/
-    ├── main.js             # Lógica del slider de proyectos y menú móvil
-    ├── styles.css          # Estilos globales y utilidades de Tailwind
-    └── assets/             # Imágenes, iconos, CV y tipografías
+    ├── main.js             # Lógica JS (ES Modules)
+    ├── styles.css          # Estilos (Tailwind CSS)
+    └── assets/             # Imágenes y logos
 ```
 
 ## 🛠️ Tecnologías
