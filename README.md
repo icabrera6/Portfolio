@@ -8,7 +8,7 @@ Portfolio personal estático e internacionalizado, desarrollado con Vanilla JS y
 - **Slider Interactivo:** Carrusel personalizado para visualizar proyectos destacados.
 - **Responsive Design:** Diseño moderno y adaptable (móvil, tablet, escritorio).
 - **Tooling Moderno:** Empaquetado optimizado con Vite y Tailwind CSS.
-- **Despliegue Asistido:** CI/CD automático conectado a AWS S3 + CloudFront.
+- **Despliegue Seguro:** CI/CD automático conectado a AWS S3 (Privado) + CloudFront con **Origin Access Control (OAC)**.
 
 ## 🚀 Quick Start
 
@@ -53,8 +53,8 @@ Portfolio/
 
 - **Frontend**: HTML5, Vanilla JavaScript, CSS3
 - **Build Tool**: Vite, PostCSS, Autoprefixer
-- **Hosting**: AWS S3 + CloudFront
-- **CDN / SSL**: CloudFront y AWS Certificate Manager
+- **Hosting**: AWS S3 (Bucket Privado)
+- **CDN / SSL**: CloudFront con **Origin Access Control (OAC)** y ACM
 - **CI/CD**: GitHub Actions
 
 ## 📊 Scripts Disponibles
@@ -71,11 +71,14 @@ El portfolio está configurado con CI/CD automático usando GitHub Actions:
 
 - ✅ **Auto-deploy** en cada push a las ramas principales.
 - ✅ Construcción del proyecto, sincronización a S3 y purga / invalidación de caché de CloudFront automática.
+- ✅ **Seguridad Reforzada:** El bucket de S3 es privado y solo accesible a través de CloudFront mediante OAC.
 
 **Setup en AWS:**
-1. Configura una pipeline de S3 conectada con un origen de CloudFront.
-2. Añade los secretos `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `BUCKET_NAME`, etc. a los Secrets del repositorio en GitHub.
-3. El despliegue se activa de forma automática tras el commit confirmando la nueva versión compilada.
+1. Configura una distribución de CloudFront con un origen S3.
+2. Activa **Origin Access Control (OAC)** para el origen S3 y actualiza la política del bucket.
+3. Bloquea todo el acceso público en las opciones de S3.
+4. Añade los secretos `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `BUCKET_NAME`, etc. a los Secrets del repositorio en GitHub.
+5. El despliegue se activa de forma automática tras el commit confirmando la nueva versión compilada.
 
 ## 📝 Licencia
 
