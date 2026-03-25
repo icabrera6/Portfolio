@@ -5,7 +5,7 @@ Portfolio personal estático e internacionalizado, desarrollado con Vanilla JS y
 ## 🌟 Características Principales
 
 - **Internacionalización (i18n):** Soporte bilingüe (Español e Inglés) con selector de idioma en la barra de navegación.
-- **Slider Interactivo:** Carrusel personalizado para visualizar proyectos destacados.
+- **Slider Interactivo:** Carrusel personalizado para visualizar proyectos destacados con imágenes ilustrativas.
 - **Responsive Design:** Diseño moderno y adaptable (móvil, tablet, escritorio).
 - **Tooling Moderno:** Empaquetado optimizado con Vite y Tailwind CSS.
 - **Despliegue Seguro:** CI/CD automático conectado a AWS S3 (Privado) + CloudFront con **Origin Access Control (OAC)**.
@@ -46,7 +46,7 @@ Portfolio/
 └── src/
     ├── main.js             # Lógica JS (ES Modules)
     ├── styles.css          # Estilos (Tailwind CSS)
-    └── assets/             # Imágenes y logos
+    └── assets/             # Imágenes, logos e ilustraciones de proyectos
 ```
 
 ## 🛠️ Tecnologías
