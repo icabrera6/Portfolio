@@ -1,71 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+// Mobile menu
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'))
+);
 
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+// Projects slider
+const track = document.getElementById('slider-track');
+const dots = Array.from(document.querySelectorAll('.dot'));
+const count = document.getElementById('proj-count');
+const total = dots.length;
+let idx = 0;
 
-        // Close mobile menu when clicking a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-    }
+function goTo(i) {
+    idx = (i + total) % total;
+    track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    dots.forEach((d, j) => d.classList.toggle('on', j === idx));
+    count.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+}
 
-    // Project slider
-    let currentSlide = 0;
-    const track = document.getElementById('project-track');
-    const dots = document.querySelectorAll('.project-dot');
-    const nextBtn = document.getElementById('next-btn');
-    const prevBtn = document.getElementById('prev-btn');
+document.getElementById('prev-btn').addEventListener('click', () => goTo(idx - 1));
+document.getElementById('next-btn').addEventListener('click', () => goTo(idx + 1));
+dots.forEach((d, j) => d.addEventListener('click', () => goTo(j)));
 
-    if (track && dots.length > 0) {
-        const slides = Array.from(track.children);
-        const totalSlides = slides.length;
-
-        function updateSlider() {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Update dots
-            dots.forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.classList.remove('bg-border-dark');
-                    dot.classList.add('bg-accent-blue');
-                } else {
-                    dot.classList.remove('bg-accent-blue');
-                    dot.classList.add('bg-border-dark');
-                }
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlider();
-            });
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateSlider();
-            });
-        }
-
-        // Dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateSlider();
-            });
-        });
-
-        // Initial state
-        updateSlider();
-    }
-});
+// Swipe support
+let startX = null;
+track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+track.addEventListener('touchend', (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) goTo(dx < 0 ? idx + 1 : idx - 1);
+    startX = null;
+}, { passive: true });
