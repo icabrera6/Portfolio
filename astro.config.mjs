@@ -1,6 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { execSync } from 'node:child_process';
+
+// Sitemap lastmod: date of the last commit that changed the site's content, not of the build
+function contentLastModified() {
+    try {
+        const iso = execSync('git log -1 --format=%cI -- src public', { encoding: 'utf8' }).trim();
+        return iso ? new Date(iso) : new Date();
+    } catch {
+        return new Date();
+    }
+}
 
 export default defineConfig({
     site: 'https://icabrera-portfolio.com',
@@ -16,7 +27,7 @@ export default defineConfig({
     integrations: [
         sitemap({
             i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en' } },
-            lastmod: new Date(),
+            lastmod: contentLastModified(),
         }),
     ],
 

@@ -144,5 +144,11 @@
     },
     "footer": {
         "role": "backend developer & cloud apprentice"
+    },
+    "notFound": {
+        "pageTitle": "Page not found · Isaac Cabrera",
+        "title": "Page not found",
+        "text": "The page you're looking for doesn't exist or has moved.",
+        "cta": "Back to home"
     }
 }

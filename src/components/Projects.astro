@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
 import SectionLabel from './SectionLabel.astro';
 import { t, type Lang } from '../i18n';
@@ -38,7 +39,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
                         <div class="slide">
                             <div class="tcard proj-card">
                                 <div class="proj-img">
-                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src={image.src} width={image.width} height={image.height} alt={item.imageAlt} loading="lazy"></div>
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div>{image.kind === 'raster'
+                                        ? <Picture src={image.meta} alt={item.imageAlt} widths={[480, 720, 1040]} sizes="(max-width: 900px) calc(100vw - 98px), 560px" formats={['webp']} loading="lazy" />
+                                        : <img src={image.src} width={image.width} height={image.height} alt={item.imageAlt} loading="lazy">}</div>
                                 </div>
                                 <div class="proj-body">
                                     <div>

@@ -2,11 +2,13 @@
 # Applies the CloudFront setup for icabrera-portfolio.com (distribution E34Z96GLOCBRS4):
 #   1. CloudFront Function "portfolio-redirects" (www -> apex, /index.html -> /), tested before publishing
 #   2. Response headers policy "portfolio-security-headers" (HSTS, CSP, nosniff, frame and referrer policies)
-#   3. Distribution: attach both, and answer missing objects (S3 403/404) with /404.html and a real 404
+#   3. Distribution: attach both, answer missing objects (S3 403/404) with /404.html and a real 404,
+#      use the managed CachingOptimized cache policy (gzip + Brotli, honours s-maxage) and enable HTTP/3
 # /404.html and /404.v1.css must already be deployed. Safe to re-run: it updates what already exists.
 set -euo pipefail
 
 DIST_ID=E34Z96GLOCBRS4
+CACHING_OPTIMIZED=658327ea-f89d-4fab-a63d-7e88639e58f6  # AWS managed cache policy
 FN=portfolio-redirects
 POLICY=portfolio-security-headers
 DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -54,12 +56,17 @@ echo "Headers policy: $POLICY_ID"
 # 3. Distribution (the previous config is kept in $TMP for rollback)
 aws cloudfront get-distribution-config --id "$DIST_ID" > "$TMP/previous.json"
 DETAG=$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1]))["ETag"])' "$TMP/previous.json")
-python3 - "$TMP/previous.json" "$TMP/next.json" "$FN_ARN" "$POLICY_ID" <<'EOF'
+python3 - "$TMP/previous.json" "$TMP/next.json" "$FN_ARN" "$POLICY_ID" "$CACHING_OPTIMIZED" <<'EOF'
 import json, sys
 cfg = json.load(open(sys.argv[1]))['DistributionConfig']
+cfg['HttpVersion'] = 'http2and3'
 behaviour = cfg['DefaultCacheBehavior']
 behaviour['FunctionAssociations'] = {'Quantity': 1, 'Items': [{'FunctionARN': sys.argv[3], 'EventType': 'viewer-request'}]}
 behaviour['ResponseHeadersPolicyId'] = sys.argv[4]
+behaviour['CachePolicyId'] = sys.argv[5]
+behaviour['Compress'] = True
+for legacy in ('ForwardedValues', 'MinTTL', 'DefaultTTL', 'MaxTTL'):  # replaced by the cache policy
+    behaviour.pop(legacy, None)
 cfg['CustomErrorResponses'] = {'Quantity': 2, 'Items': [
     {'ErrorCode': code, 'ResponsePagePath': '/404.html', 'ResponseCode': '404', 'ErrorCachingMinTTL': 60}
     for code in (403, 404)

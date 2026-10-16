@@ -49,17 +49,17 @@ Portfolio/
 ├── .github/workflows/
 │   └── deploy.yml          # CI/CD para AWS
 ├── infra/cloudfront/       # Función de redirecciones, cabeceras de seguridad y script apply.sh
-├── public/                 # Archivos estáticos (CV, página 404, robots, imagen OG…)
+├── public/                 # Archivos estáticos (CV, robots, imagen OG…)
 ├── astro.config.mjs        # Configuración de Astro (i18n, sitemap)
 └── src/
-    ├── pages/              # index.astro (es) y en/index.astro (en)
+    ├── pages/              # index.astro (es), en/index.astro (en) y 404.astro
     ├── layouts/Base.astro  # <head>: SEO, Open Graph, hreflang y JSON-LD
     ├── components/         # Secciones de la página (Hero, Projects, Contact…)
     ├── i18n/               # es.json, en.json y utilidades de idioma
     ├── data/site.ts        # Datos comunes a todos los idiomas
     ├── scripts/main.js     # Slider, menú móvil y animaciones
-    ├── styles/global.css   # Estilos
-    └── assets/             # Imágenes, iconos y diagramas de proyectos
+    ├── styles/             # global.css, fonts.css (@font-face) y 404.css
+    └── assets/             # Imágenes, iconos, diagramas y fuentes autoalojadas (assets/fonts)
 ```
 
 ## 🛠️ Tecnologías

@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history: the sitemap's lastmod comes from git log
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -45,14 +47,20 @@ jobs:
             --exclude "*.txt" \
             --exclude "*.xml"
           
-          # HTML files with no-cache for immediate updates
+          # HTML and other text files: browsers always revalidate (max-age=0), CloudFront keeps
+          # them at the edge (s-maxage) until the invalidation below runs on the next deploy
           aws s3 sync dist/ s3://isaac-cabrera-portfolio \
             --exclude "*" \
             --include "*.html" \
+            --content-type "text/html; charset=utf-8" \
+            --cache-control "public,max-age=0,s-maxage=31536000,must-revalidate"
+
+          aws s3 sync dist/ s3://isaac-cabrera-portfolio \
+            --exclude "*" \
             --include "*.json" \
             --include "*.txt" \
             --include "*.xml" \
-            --cache-control "public,max-age=0,must-revalidate"
+            --cache-control "public,max-age=0,s-maxage=31536000,must-revalidate"
       
       - name: Invalidate CloudFront cache
         run: |

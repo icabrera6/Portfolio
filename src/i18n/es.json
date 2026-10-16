@@ -144,5 +144,11 @@
     },
     "footer": {
         "role": "backend developer & cloud apprentice"
+    },
+    "notFound": {
+        "pageTitle": "Página no encontrada · Isaac Cabrera",
+        "title": "Página no encontrada",
+        "text": "La página que buscas no existe o ha cambiado de dirección.",
+        "cta": "Volver al inicio"
     }
 }

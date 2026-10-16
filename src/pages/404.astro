@@ -1,0 +1,54 @@
+---
+// Served by CloudFront for any missing URL, at any depth (assets use absolute /_astro/ paths).
+// Bilingual: Spanish first, English underneath.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import '../styles/fonts.css';
+import '../styles/404.css';
+import faviconSvg from '../assets/favicon.svg?url';
+import favicon32 from '../assets/favicon-32.png?url';
+import { t } from '../i18n';
+
+const es = t('es').notFound;
+const en = t('en').notFound;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{es.pageTitle}</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0b0f17">
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32}>
+    <link rel="icon" type="image/svg+xml" href={faviconSvg}>
+</head>
+
+<body>
+    <main class="nf">
+        <!-- The mark with its core missing: nothing is running here -->
+        <svg class="nf-mark" viewBox="0 0 120 120" aria-hidden="true">
+            <g class="guides">
+                <circle cx="60" cy="60" r="57" stroke-dasharray="1.2 2.4"/>
+                <line x1="60" y1="-24" x2="60" y2="144"/>
+                <line x1="-24" y1="60" x2="144" y2="60"/>
+                <line x1="88" y1="40" x2="150" y2="40" stroke-dasharray="2 2"/>
+                <line x1="88" y1="80" x2="150" y2="80" stroke-dasharray="2 2"/>
+            </g>
+            <path class="ring" d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/>
+            <rect class="ring" x="47" y="56" width="16" height="30"/>
+            <circle class="core" cx="55" cy="42.5" r="9"/>
+        </svg>
+
+        <p class="code">404</p>
+        <h1>{es.title}</h1>
+        <p class="sub" lang="en">{en.title}</p>
+        <p class="txt">{es.text}<br><span lang="en">{en.text}</span></p>
+
+        <div class="cta">
+            <a class="btn" href={getRelativeLocaleUrl('es')}>{es.cta}</a>
+            <a class="link" href={getRelativeLocaleUrl('en')} lang="en">{en.cta}</a>
+        </div>
+    </main>
+</body>
+</html>

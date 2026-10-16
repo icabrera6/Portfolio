@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import pfp from '../assets/pfp.webp';
 import { t, type Lang } from '../i18n';
 import { heroChips, person } from '../data/site';
@@ -40,7 +41,19 @@ const { hero } = t(lang);
                     <path class="ring-arc" d="M110.6 48 A52 52 0 1 0 110.6 72 L107.51 72 A49 49 0 1 1 107.51 48 Z"/>
                     <g class="ring-nodes"><circle cx="110.6" cy="48" r="1.3"/><circle cx="110.6" cy="72" r="1.3"/></g>
                 </svg>
-                <img src={pfp.src} alt={hero.photoAlt} width="300" height="300" fetchpriority="high">
+                <!-- Shown at 73.3% of the ring: min(300px, 74vw) on mobile, clamp(260px, 30vw, 400px) on desktop -->
+                <Picture
+                    src={pfp}
+                    alt={hero.photoAlt}
+                    widths={[220, 300, 440, 600]}
+                    sizes="(max-width: 900px) min(220px, 54vw), clamp(191px, 22vw, 293px)"
+                    formats={['avif']}
+                    fallbackFormat="webp"
+                    width={300}
+                    height={300}
+                    loading="eager"
+                    fetchpriority="high"
+                />
                 <span class="photo-tag">{hero.status}</span>
             </div>
         </div>

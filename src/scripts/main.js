@@ -113,8 +113,9 @@ if (deck) {
     window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(drawDeck, 150); });
 }
 
-// Scroll reveal, staggered within each group
-const REVEAL = '.hero-text > *, .photo-ring, .label, .h2, .about-grid p, .about-card, .skills-grid, .proj-controls, .slider, .edu-row, .contact-sub, .contact-card';
+// Scroll reveal, staggered within each group. The hero is left out: hiding it
+// until the script runs would delay the first paint and the LCP.
+const REVEAL = '.section .label, .section .h2, .about-grid p, .about-card, .skills-grid, .proj-controls, .slider, .edu-row, .contact-sub, .contact-card';
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const items = document.querySelectorAll(REVEAL);
     const io = new IntersectionObserver((entries) => {
