@@ -76,6 +76,36 @@
                 "inLanguage": "en",
                 "isPartOf": { "@id": "https://icabrera-portfolio.com/#website" },
                 "mainEntity": { "@id": "https://icabrera-portfolio.com/#person" }
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "@id": "https://icabrera-portfolio.com/#project-portfolio",
+                "name": "Portfolio AWS Cloud",
+                "description": "Personal portfolio deployed on AWS with S3 + CloudFront. CI/CD implementation with GitHub Actions for automatic deployments.",
+                "codeRepository": "https://github.com/icabrera6/Portfolio",
+                "programmingLanguage": "JavaScript",
+                "keywords": "AWS, GitHub Actions, CI/CD",
+                "author": { "@id": "https://icabrera-portfolio.com/#person" }
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "@id": "https://icabrera-portfolio.com/#project-armario",
+                "name": "Armario — AI-powered virtual wardrobe",
+                "description": "PWA that turns photos of your clothes into a digital wardrobe: it removes the background and classifies each garment with Claude on Amazon Bedrock through an asynchronous EventBridge pipeline. Compose outfits, log what you wear and get daily suggestions based on the weather.",
+                "codeRepository": "https://github.com/icabrera6/Armario",
+                "programmingLanguage": "TypeScript",
+                "keywords": "React, TypeScript, AWS Lambda, Bedrock, DynamoDB, AWS CDK",
+                "author": { "@id": "https://icabrera-portfolio.com/#person" }
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "@id": "https://icabrera-portfolio.com/#project-mynotes",
+                "name": "MyNotes — Study management",
+                "description": "Installable PWA for organising studies: Markdown notes and files, an exam and deadline calendar, a Pomodoro timer and spaced-repetition flashcards (FSRS). Hono API on a single Lambda secured with Cognito, with data isolated per user.",
+                "codeRepository": "https://github.com/icabrera6/mynotes",
+                "programmingLanguage": "TypeScript",
+                "keywords": "React, TypeScript, Hono, Cognito, DynamoDB, AWS CDK",
+                "author": { "@id": "https://icabrera-portfolio.com/#person" }
             }
         ]
     }
@@ -89,7 +119,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="./src/styles.css">
@@ -110,7 +140,7 @@
                 <a href="#projects">Projects</a>
                 <a href="#education">Education</a>
                 <a href="#contact">Contact</a>
-                <span class="nav-lang"><a href="index.html" hreflang="es" lang="es">ES</a><span>/</span><span class="on">EN</span></span>
+                <span class="nav-lang"><a href="./" hreflang="es" lang="es">ES</a><span>/</span><span class="on">EN</span></span>
             </div>
             <button id="menu-btn" class="menu-btn" aria-label="Open navigation menu">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
@@ -122,7 +152,7 @@
             <a href="#projects">Projects</a>
             <a href="#education">Education</a>
             <a href="#contact">Contact</a>
-            <div class="lang-row nav-lang"><a href="index.html" hreflang="es" lang="es">ES</a><span class="on">EN</span></div>
+            <div class="lang-row nav-lang"><a href="./" hreflang="es" lang="es">ES</a><span class="on">EN</span></div>
         </div>
     </nav>
 
@@ -269,7 +299,7 @@
                         <div class="slide">
                             <div class="tcard proj-card">
                                 <div class="proj-img">
-                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Diagrama_Portfolio_AWS.png" alt="Portfolio AWS Cloud Architecture" loading="lazy"></div>
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Diagrama_Portfolio_AWS.png" width="1630" height="1088" alt="Portfolio AWS Cloud Architecture" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
@@ -290,7 +320,7 @@
                         <div class="slide">
                             <div class="tcard proj-card">
                                 <div class="proj-img">
-                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Armario.svg" alt="Armario serverless architecture on AWS" loading="lazy"></div>
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Armario.svg" width="1530" height="1078" alt="Armario serverless architecture on AWS" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
@@ -314,7 +344,7 @@
                         <div class="slide">
                             <div class="tcard proj-card">
                                 <div class="proj-img">
-                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/MyNotes.svg" alt="MyNotes serverless architecture on AWS" loading="lazy"></div>
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/MyNotes.svg" width="1365" height="920" alt="MyNotes serverless architecture on AWS" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
