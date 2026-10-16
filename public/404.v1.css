@@ -1,0 +1,63 @@
+/* 404 page. Brand palette from brand/brandkit.html; kept standalone so it works at any URL depth. */
+:root {
+    --ink: #0b0f17;
+    --ivory: #efede6;
+    --ion: #8ec9ff;
+    --sub: #a3abb9;
+    --faint: #7a8394;
+    color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+body {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 48px 24px;
+    background:
+        radial-gradient(50% 55% at 50% 38%, rgba(30, 58, 110, .5), transparent 70%),
+        var(--ink);
+    color: var(--ivory);
+    font-family: 'Public Sans', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--ion); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--ion); outline-offset: 3px; border-radius: 4px; }
+
+.nf { display: flex; flex-direction: column; align-items: center; max-width: 520px; }
+.nf-mark { width: 148px; height: 148px; overflow: visible; margin-bottom: 36px; }
+.guides { fill: none; stroke: rgba(142, 201, 255, .22); stroke-width: 1; }
+.guides * { vector-effect: non-scaling-stroke; }
+.ring { fill: var(--ivory); }
+.core { fill: none; stroke: var(--ion); stroke-width: 1.5; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+
+.code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: .2em; color: var(--ion); }
+h1 {
+    margin-top: 12px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: clamp(36px, 7vw, 54px);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -.025em;
+}
+.sub { margin-top: 8px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: var(--faint); }
+.txt { margin-top: 22px; font-size: 16px; color: var(--sub); }
+.txt span { display: inline-block; margin-top: 4px; color: var(--faint); font-size: 14.5px; }
+
+.cta { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 26px; margin-top: 34px; }
+.btn {
+    padding: 13px 22px;
+    border-radius: 6px;
+    background: var(--ivory);
+    color: var(--ink);
+    font-size: 14.5px;
+    font-weight: 600;
+    transition: background .2s, transform .2s;
+}
+.btn:hover { background: #fff; transform: translateY(-1px); }
+.link { font-size: 14.5px; font-weight: 600; }
+.link::after { content: " →"; font-family: 'IBM Plex Mono', monospace; color: var(--ion); }
+.link:hover { color: var(--ion); }

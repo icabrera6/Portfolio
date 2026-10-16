@@ -1,0 +1,26 @@
+{
+    "Name": "portfolio-security-headers",
+    "Comment": "Security headers for icabrera-portfolio.com",
+    "SecurityHeadersConfig": {
+        "StrictTransportSecurity": {
+            "Override": true,
+            "AccessControlMaxAgeSec": 31536000,
+            "IncludeSubdomains": true,
+            "Preload": false
+        },
+        "ContentTypeOptions": { "Override": true },
+        "FrameOptions": { "Override": true, "FrameOption": "DENY" },
+        "ReferrerPolicy": { "Override": true, "ReferrerPolicy": "strict-origin-when-cross-origin" },
+        "ContentSecurityPolicy": {
+            "Override": true,
+            "ContentSecurityPolicy": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+    },
+    "CustomHeadersConfig": {
+        "Quantity": 2,
+        "Items": [
+            { "Header": "Permissions-Policy", "Value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()", "Override": true },
+            { "Header": "Cross-Origin-Opener-Policy", "Value": "same-origin", "Override": true }
+        ]
+    }
+}
