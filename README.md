@@ -1,36 +1,46 @@
 # Portfolio - Isaac Cabrera
 
-Portfolio personal estático e internacionalizado, desarrollado con Vanilla JS y empaquetado con Vite. Desplegado en AWS S3 + CloudFront mediante CI/CD con GitHub Actions.
+Portfolio personal estático y bilingüe (español / inglés), construido con Astro. Desplegado en AWS S3 + CloudFront mediante CI/CD con GitHub Actions.
 
 ## 🌟 Características Principales
 
-- **Internacionalización (i18n):** Soporte bilingüe (Español e Inglés) con selector de idioma en la barra de navegación.
+- **Internacionalización (i18n):** una sola plantilla y un archivo de traducción por idioma. Astro genera una página estática por idioma: español en `/` e inglés en `/en/`, con `hreflang`, canonical y sitemap por idioma.
 - **Slider Interactivo:** Carrusel personalizado para visualizar proyectos destacados con imágenes ilustrativas.
 - **Responsive Design:** Diseño moderno y adaptable (móvil, tablet, escritorio).
-- **Tooling Moderno:** Empaquetado optimizado con Vite y Tailwind CSS.
-- **Despliegue Seguro:** CI/CD automático conectado a AWS S3 (Privado) + CloudFront con **Origin Access Control (OAC)**.
+- **Sin JavaScript de framework:** Astro genera HTML estático; solo se envía el script del slider y las animaciones.
+- **Despliegue Seguro:** CI/CD automático conectado a AWS S3 (Privado) + CloudFront con **Origin Access Control (OAC)**, cabeceras de seguridad (CSP, HSTS…) y redirecciones canónicas (ver `infra/cloudfront/`).
 
 ## 🚀 Quick Start
 
 ### Desarrollo Local
 
-Instala las dependencias de Node e inicia el servidor de desarrollo de Vite:
+Requiere Node 24 (fijado en `.nvmrc`):
 
 ```bash
+nvm use
 npm install
 npm run dev
 ```
 
-Abre [http://localhost:5173](http://localhost:5173) en tu navegador.
+Abre [http://localhost:4321](http://localhost:4321) (español) o [http://localhost:4321/en/](http://localhost:4321/en/) (inglés).
 
 ### Build de Producción
-
-Empaqueta ambos idiomas (ES/EN) y optimiza recursos:
 
 ```bash
 npm run build
 npm run preview
 ```
+
+## 🌍 Traducciones
+
+Todos los textos de la página están en `src/i18n/`:
+
+- `src/i18n/es.json`: textos en español
+- `src/i18n/en.json`: textos en inglés
+
+Los dos archivos tienen exactamente las mismas claves. Para cambiar un texto, edítalo en ambos. Lo que no se traduce (tecnologías, enlaces, repositorios, imágenes) está en `src/data/site.ts`.
+
+Para añadir un idioma nuevo: crea `src/i18n/<código>.json` con las mismas claves, añádelo en `src/i18n/index.ts` y en `astro.config.mjs` (`i18n.locales` y el sitemap), y crea `src/pages/<código>/index.astro`.
 
 ## 📁 Estructura del Proyecto
 
@@ -38,31 +48,33 @@ npm run preview
 Portfolio/
 ├── .github/workflows/
 │   └── deploy.yml          # CI/CD para AWS
-├── public/                 # Archivos estáticos (CV, etc.)
-├── index.html              # Página principal (ES)
-├── index-en.html           # Página principal (EN)
-├── package.json            # Scripts y dependencias
-├── vite.config.js          # Configuración de Vite
+├── infra/cloudfront/       # Función de redirecciones, cabeceras de seguridad y script apply.sh
+├── public/                 # Archivos estáticos (CV, página 404, robots, imagen OG…)
+├── astro.config.mjs        # Configuración de Astro (i18n, sitemap)
 └── src/
-    ├── main.js             # Lógica JS (ES Modules)
-    ├── styles.css          # Estilos (Tailwind CSS)
-    └── assets/             # Imágenes, logos e ilustraciones de proyectos
+    ├── pages/              # index.astro (es) y en/index.astro (en)
+    ├── layouts/Base.astro  # <head>: SEO, Open Graph, hreflang y JSON-LD
+    ├── components/         # Secciones de la página (Hero, Projects, Contact…)
+    ├── i18n/               # es.json, en.json y utilidades de idioma
+    ├── data/site.ts        # Datos comunes a todos los idiomas
+    ├── scripts/main.js     # Slider, menú móvil y animaciones
+    ├── styles/global.css   # Estilos
+    └── assets/             # Imágenes, iconos y diagramas de proyectos
 ```
 
 ## 🛠️ Tecnologías
 
-- **Frontend**: HTML5, Vanilla JavaScript, CSS3
-- **Build Tool**: Vite, PostCSS, Autoprefixer
+- **Frontend**: Astro, HTML5, JavaScript, CSS3
 - **Hosting**: AWS S3 (Bucket Privado)
-- **CDN / SSL**: CloudFront con **Origin Access Control (OAC)** y ACM
+- **CDN / SSL**: CloudFront con **Origin Access Control (OAC)**, ACM y CloudFront Functions
 - **CI/CD**: GitHub Actions
 
 ## 📊 Scripts Disponibles
 
 | Script | Descripción |
 |--------|-------------|
-| `npm run dev` | Servidor de desarrollo local (Vite) |
-| `npm run build` | Contruye la carpeta `dist/` optimizada para producción |
+| `npm run dev` | Servidor de desarrollo local (Astro) |
+| `npm run build` | Construye la carpeta `dist/` optimizada para producción |
 | `npm run preview` | Previsualiza en un servidor local el build de `dist/` |
 
 ## 🤖 Automated Deployment (GitHub Actions)

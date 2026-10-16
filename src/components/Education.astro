@@ -1,0 +1,31 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { education } = t(lang);
+---
+
+<section id="education" class="section">
+    <div class="wrap">
+        <div class="paper">
+            <SectionLabel index={4} text={education.label} />
+            <h2 class="h2">{education.title}</h2>
+            <div class="edu-list">
+                {education.items.map((item) => (
+                    <div class="edu-row">
+                        <span class="edu-period">{item.period}</span>
+                        <div>
+                            <h3>{item.title}</h3>
+                            <p class="muted desc">{item.description}</p>
+                        </div>
+                        <span class="edu-org">{item.org}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>

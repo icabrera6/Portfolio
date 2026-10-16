@@ -1,0 +1,9 @@
+---
+interface Props {
+    index: number;
+    text: string;
+}
+const { index, text } = Astro.props;
+---
+
+<span class="label"><b>{String(index).padStart(2, '0')}</b> · {text}</span>

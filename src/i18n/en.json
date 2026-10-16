@@ -1,0 +1,148 @@
+{
+    "meta": {
+        "title": "Isaac Cabrera · Backend & Cloud Developer (AWS) | Portfolio",
+        "description": "Portfolio of Isaac Cabrera, a backend and cloud developer specialising in AWS serverless. Cyber Security student at York St John University. See my projects.",
+        "ogTitle": "Isaac Cabrera · Backend & Cloud Developer",
+        "ogDescription": "Backend and cloud developer specialising in AWS serverless. Cyber Security student at York St John University.",
+        "ogImageAlt": "Isaac Cabrera, Backend & Cloud Developer",
+        "twitterTitle": "Isaac Cabrera · Backend & Cloud Developer",
+        "twitterDescription": "Backend and cloud developer specialising in AWS serverless. Cyber Security student at York St John University.",
+        "personDescription": "Backend and cloud developer specialising in AWS serverless, and Cyber Security student at York St John University.",
+        "profileName": "Isaac Cabrera · Portfolio",
+        "menuLabel": "Open navigation menu"
+    },
+    "nav": {
+        "about": "About Me",
+        "skills": "Skills",
+        "projects": "Projects",
+        "education": "Education",
+        "contact": "Contact"
+    },
+    "hero": {
+        "kicker": "// backend · cloud · aws",
+        "role": "Backend Developer & Cloud Apprentice",
+        "tagline": "Hi, I'm Isaac. Developer specialized in backend, scalable cloud infrastructure with AWS and secure APIs.",
+        "ctaContact": "Get in Touch",
+        "ctaProjects": "View Projects",
+        "photoAlt": "Isaac Cabrera",
+        "status": "status: learning"
+    },
+    "about": {
+        "label": "About Me",
+        "title": "Driven by curiosity",
+        "paragraphs": [
+            "I have completed my Higher Vocational Training in Multi-Platform Application Development and I'm currently studying for a BSc (Hons) in Cyber Security at York St John University. Over these years I've grown interested in Python development, data management with SQL and the wide range of services offered by AWS. I'm planning several personal and academic projects to reinforce and expand my knowledge of technologies that are valuable in today's market.",
+            "I consider myself a curious, proactive person eager to learn. I enjoy picking up new technologies and applying them to my projects."
+        ],
+        "cards": {
+            "cloud": {
+                "title": "Cloud",
+                "text": "Design and implementation of scalable cloud infrastructures on AWS"
+            },
+            "backend": {
+                "title": "Backend",
+                "text": "Robust RESTful APIs with Python, Node.js and best practices"
+            },
+            "databases": {
+                "title": "Databases",
+                "text": "Relational and NoSQL databases"
+            },
+            "devops": {
+                "title": "DevOps",
+                "text": "CI/CD, containerization and deployment automation"
+            }
+        }
+    },
+    "skills": {
+        "label": "Technical Skills",
+        "title": "Current stack",
+        "groups": {
+            "backend": "Backend",
+            "cloud": "Cloud",
+            "databases": "Databases",
+            "devops": "DevOps"
+        }
+    },
+    "projects": {
+        "label": "Featured Projects",
+        "title": "Recent work",
+        "prev": "Previous project",
+        "next": "Next project",
+        "goTo": "Go to project {n}",
+        "items": {
+            "portfolio": {
+                "title": "Portfolio AWS Cloud",
+                "description": "Personal portfolio deployed on AWS with S3 + CloudFront. CI/CD implementation with GitHub Actions for automatic deployments.",
+                "imageAlt": "Portfolio AWS Cloud Architecture",
+                "githubLabel": "Portfolio AWS Cloud on GitHub"
+            },
+            "armario": {
+                "title": "Armario — AI-powered virtual wardrobe",
+                "description": "PWA that turns photos of your clothes into a digital wardrobe: it removes the background and classifies each garment with Claude on Amazon Bedrock through an asynchronous EventBridge pipeline. Compose outfits, log what you wear and get daily suggestions based on the weather.",
+                "imageAlt": "Armario serverless architecture on AWS",
+                "githubLabel": "Armario on GitHub"
+            },
+            "mynotes": {
+                "title": "MyNotes — Study management",
+                "description": "Installable PWA for organising studies: Markdown notes and files, an exam and deadline calendar, a Pomodoro timer and spaced-repetition flashcards (FSRS). Hono API on a single Lambda secured with Cognito, with data isolated per user.",
+                "imageAlt": "MyNotes serverless architecture on AWS",
+                "githubLabel": "MyNotes on GitHub"
+            }
+        }
+    },
+    "education": {
+        "label": "Education",
+        "title": "Studies & certifications",
+        "items": [
+            {
+                "period": "09/2026 – 06/2027",
+                "title": "BSc (Hons) Cyber Security",
+                "description": "Honours degree in Cyber Security in the United Kingdom. Modules: Network Security, Secure Programming, Digital Forensics and Cloud Security.",
+                "org": "York St John University"
+            },
+            {
+                "period": "2024 – 2026",
+                "title": "Multi-Platform Application Development",
+                "description": "Specialized training in software development, databases, mobile programming and multi-platform application architectures.",
+                "org": "Higher Vocational Training Degree"
+            },
+            {
+                "period": "In progress",
+                "title": "AWS Solutions Architect Associate",
+                "description": "Foundational AWS certification covering cloud services, architecture, security and best practices.",
+                "org": "Amazon Web Services"
+            },
+            {
+                "period": "Always",
+                "title": "Continuous Learning",
+                "description": "Python · CI/CD Pipelines · AWS · Docker",
+                "org": "Self-taught"
+            }
+        ]
+    },
+    "contact": {
+        "label": "Contact",
+        "title": "Have a project in mind?",
+        "subtitle": "I'd love to hear more.",
+        "cards": {
+            "cv": {
+                "title": "Download CV",
+                "detail": "My résumé"
+            },
+            "email": {
+                "title": "Email"
+            },
+            "linkedin": {
+                "title": "LinkedIn",
+                "detail": "Let's connect"
+            },
+            "github": {
+                "title": "GitHub",
+                "detail": "See my projects"
+            }
+        }
+    },
+    "footer": {
+        "role": "backend developer & cloud apprentice"
+    }
+}

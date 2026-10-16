@@ -1,0 +1,148 @@
+{
+    "meta": {
+        "title": "Isaac Cabrera · Desarrollador Backend y Cloud (AWS)",
+        "description": "Isaac Cabrera, desarrollador backend y cloud especializado en AWS serverless. Estudiante de Cyber Security en York St John University. Mira mis proyectos.",
+        "ogTitle": "Isaac Cabrera · Desarrollador Backend y Cloud",
+        "ogDescription": "Desarrollador backend y cloud especializado en AWS serverless. Estudiante de Cyber Security en York St John University.",
+        "ogImageAlt": "Isaac Cabrera, Backend & Cloud Developer",
+        "twitterTitle": "Isaac Cabrera · Desarrollador Backend y Cloud",
+        "twitterDescription": "Desarrollador backend y cloud especializado en AWS serverless. Estudiante de Cyber Security en York St John University.",
+        "personDescription": "Desarrollador backend y cloud especializado en AWS serverless y estudiante de Cyber Security en York St John University.",
+        "profileName": "Isaac Cabrera · Portfolio",
+        "menuLabel": "Abrir menú de navegación"
+    },
+    "nav": {
+        "about": "Sobre Mí",
+        "skills": "Habilidades",
+        "projects": "Proyectos",
+        "education": "Formación",
+        "contact": "Contacto"
+    },
+    "hero": {
+        "kicker": "// backend · cloud · aws",
+        "role": "Desarrollador Backend & Aprendiz de Cloud",
+        "tagline": "Hola, soy Isaac. Desarrollador especializado en backend, infraestructura cloud escalable con AWS y APIs seguras.",
+        "ctaContact": "Contactar",
+        "ctaProjects": "Ver Proyectos",
+        "photoAlt": "Isaac Cabrera",
+        "status": "status: learning"
+    },
+    "about": {
+        "label": "Sobre Mí",
+        "title": "Curiosidad como motor",
+        "paragraphs": [
+            "He terminado el ciclo superior de DAM y actualmente estoy cursando el BSc (Hons) en Cyber Security en York St John University. Tras estos años me he interesado por el desarrollo con Python, la gestión de datos con SQL y la variedad de servicios ofrecidos por AWS. Estoy planteando varios proyectos tanto personales como académicos con los que reforzar y ampliar mis conocimientos con múltiples tecnologías útiles en el mercado actual.",
+            "Me considero una persona curiosa, proactiva y con ganas de aprender. Disfruto aprendiendo nuevas tecnologías y aplicándolas en mis proyectos."
+        ],
+        "cards": {
+            "cloud": {
+                "title": "Cloud",
+                "text": "Diseño e implementación de infraestructuras cloud escalables en AWS"
+            },
+            "backend": {
+                "title": "Backend",
+                "text": "APIs RESTful robustas con Python, Node.js y buenas prácticas"
+            },
+            "databases": {
+                "title": "BBDD",
+                "text": "Bases de datos relacionales y NoSQL"
+            },
+            "devops": {
+                "title": "DevOps",
+                "text": "CI/CD, containerización y automatización de despliegues"
+            }
+        }
+    },
+    "skills": {
+        "label": "Habilidades Técnicas",
+        "title": "Stack actual",
+        "groups": {
+            "backend": "Backend",
+            "cloud": "Cloud",
+            "databases": "Bases de datos",
+            "devops": "DevOps"
+        }
+    },
+    "projects": {
+        "label": "Proyectos Destacados",
+        "title": "Trabajo reciente",
+        "prev": "Proyecto anterior",
+        "next": "Siguiente proyecto",
+        "goTo": "Ir al proyecto {n}",
+        "items": {
+            "portfolio": {
+                "title": "Portfolio AWS Cloud",
+                "description": "Portfolio personal desplegado en AWS con S3 + CloudFront. Implementación de CI/CD con GitHub Actions para despliegues automáticos.",
+                "imageAlt": "Arquitectura cloud del Portfolio en AWS",
+                "githubLabel": "Portfolio AWS Cloud en GitHub"
+            },
+            "armario": {
+                "title": "Armario — Armario virtual con IA",
+                "description": "PWA que convierte fotos de tu ropa en un armario digital: elimina el fondo y clasifica cada prenda con Claude en Amazon Bedrock mediante un pipeline asíncrono con EventBridge. Permite componer outfits, registrar lo que te pones y recibir recomendaciones diarias según el tiempo.",
+                "imageAlt": "Arquitectura serverless de Armario en AWS",
+                "githubLabel": "Armario en GitHub"
+            },
+            "mynotes": {
+                "title": "MyNotes — Gestión de estudios",
+                "description": "PWA instalable para organizar los estudios: apuntes en Markdown y archivos, calendario de exámenes y entregas, temporizador Pomodoro y flashcards con repetición espaciada (FSRS). API Hono en una Lambda protegida con Cognito y datos aislados por usuario.",
+                "imageAlt": "Arquitectura serverless de MyNotes en AWS",
+                "githubLabel": "MyNotes en GitHub"
+            }
+        }
+    },
+    "education": {
+        "label": "Formación",
+        "title": "Estudios y certificaciones",
+        "items": [
+            {
+                "period": "09/2026 – 06/2027",
+                "title": "BSc (Hons) Cyber Security",
+                "description": "Grado universitario en Ciberseguridad en Reino Unido. Módulos: seguridad de redes, programación segura, análisis forense digital y seguridad cloud.",
+                "org": "York St John University"
+            },
+            {
+                "period": "2024 – 2026",
+                "title": "Desarrollo de Aplicaciones Multiplataforma",
+                "description": "Formación especializada en desarrollo de software, bases de datos, programación móvil y arquitecturas de aplicaciones multiplataforma.",
+                "org": "Ciclo Formativo de Grado Superior"
+            },
+            {
+                "period": "En progreso",
+                "title": "AWS Solutions Architect Associate",
+                "description": "Certificación fundamental de AWS cubriendo servicios cloud, arquitectura, seguridad y mejores prácticas.",
+                "org": "Amazon Web Services"
+            },
+            {
+                "period": "Siempre",
+                "title": "Aprendizaje Continuo",
+                "description": "Python · CI/CD Pipelines · AWS · Docker",
+                "org": "Autodidacta"
+            }
+        ]
+    },
+    "contact": {
+        "label": "Contacto",
+        "title": "¿Tienes un proyecto en mente?",
+        "subtitle": "Me encantaría saber más.",
+        "cards": {
+            "cv": {
+                "title": "Descargar CV",
+                "detail": "Mi currículum"
+            },
+            "email": {
+                "title": "Email"
+            },
+            "linkedin": {
+                "title": "LinkedIn",
+                "detail": "Conectemos"
+            },
+            "github": {
+                "title": "GitHub",
+                "detail": "Ve mis proyectos"
+            }
+        }
+    },
+    "footer": {
+        "role": "backend developer & cloud apprentice"
+    }
+}

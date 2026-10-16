@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import SectionLabel from './SectionLabel.astro';
+import { t, type Lang } from '../i18n';
+import { skills } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { skills: copy } = t(lang);
+---
+
+<section id="skills" class="section section-alt">
+    <div class="wrap">
+        <SectionLabel index={2} text={copy.label} />
+        <h2 class="h2">{copy.title}</h2>
+        <div class="skills-grid">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            {skills.map(({ id, icon, items }) => (
+                <div class="skill-col">
+                    <div class="skill-head"><Icon name={icon} size={18} /><h3>{copy.groups[id]}</h3></div>
+                    <ul>
+                        {items.map((item) => <li>{item}</li>)}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

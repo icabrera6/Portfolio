@@ -1,0 +1,9 @@
+---
+// The iC mark: a ring with one gate (C) around a lowercase i whose dot is the core.
+interface Props {
+    class?: string;
+}
+const { class: className = 'nav-mark' } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 120 120" aria-hidden="true"><path d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/><rect x="47" y="56" width="16" height="30"/><circle class="core" cx="55" cy="42.5" r="9"/></svg>

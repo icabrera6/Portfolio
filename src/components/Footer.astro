@@ -1,0 +1,18 @@
+---
+import Mark from './Mark.astro';
+import { t, type Lang } from '../i18n';
+import { copyright } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { footer } = t(lang);
+---
+
+<footer>
+    <div class="wrap footer-inner">
+        <span class="foot-id"><Mark />{copyright}</span>
+        <span>{footer.role}</span>
+    </div>
+</footer>

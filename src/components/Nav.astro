@@ -1,0 +1,30 @@
+---
+import Mark from './Mark.astro';
+import Icon from './Icon.astro';
+import LangSwitch from './LangSwitch.astro';
+import { t, type Lang } from '../i18n';
+import { person, sections } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+
+<nav class="nav">
+    <div class="wrap nav-inner">
+        <a href="#hero" class="nav-logo"><Mark />{person.handle}<span>_</span></a>
+        <div class="nav-links">
+            {sections.map((id) => <a href={`#${id}`}>{tr.nav[id]}</a>)}
+            <LangSwitch lang={lang} class="nav-lang" separator />
+        </div>
+        <button id="menu-btn" class="menu-btn" aria-label={tr.meta.menuLabel}>
+            <Icon name="menu" size={20} strokeWidth={2} />
+        </button>
+    </div>
+    <div id="mobile-menu" class="mobile-menu">
+        {sections.map((id) => <a href={`#${id}`}>{tr.nav[id]}</a>)}
+        <LangSwitch lang={lang} class="lang-row nav-lang" />
+    </div>
+</nav>

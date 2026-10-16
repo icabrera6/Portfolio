@@ -1,0 +1,22 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { langs, localeSettings, type Lang } from '../i18n';
+
+interface Props {
+    lang: Lang;
+    class: string;
+    separator?: boolean;
+}
+const { lang, class: className, separator = false } = Astro.props;
+---
+
+<span class={className}>
+    {langs.map((l, i) => (
+        <Fragment>
+            {separator && i > 0 && <span>/</span>}
+            {l === lang
+                ? <span class="on">{localeSettings[l].label}</span>
+                : <a href={getRelativeLocaleUrl(l)} hreflang={l} lang={l}>{localeSettings[l].label}</a>}
+        </Fragment>
+    ))}
+</span>

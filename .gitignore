@@ -39,3 +39,6 @@ aws-config.json
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Astro
+.astro/

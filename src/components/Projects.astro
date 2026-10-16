@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import SectionLabel from './SectionLabel.astro';
+import { t, type Lang } from '../i18n';
+import { projects } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { projects: copy } = t(lang);
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section id="projects" class="section">
+    <div class="wrap">
+        <div class="proj-head">
+            <div>
+                <SectionLabel index={3} text={copy.label} />
+                <h2 class="h2">{copy.title}</h2>
+            </div>
+            <div class="proj-controls">
+                <span id="proj-count" class="proj-count">{pad(1)} / {pad(projects.length)}</span>
+                <button id="prev-btn" class="sbtn" aria-label={copy.prev}>
+                    <Icon name="chevronLeft" size={18} />
+                </button>
+                <button id="next-btn" class="sbtn" aria-label={copy.next}>
+                    <Icon name="chevronRight" size={18} />
+                </button>
+            </div>
+        </div>
+
+        <div class="slider">
+            <div id="slider-track" class="slider-track">
+                {projects.map(({ id, repo, tags, image }) => {
+                    const item = copy.items[id];
+                    return (
+                        <div class="slide">
+                            <div class="tcard proj-card">
+                                <div class="proj-img">
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src={image.src} width={image.width} height={image.height} alt={item.imageAlt} loading="lazy"></div>
+                                </div>
+                                <div class="proj-body">
+                                    <div>
+                                        <h3>{item.title}</h3>
+                                        <p class="muted">{item.description}</p>
+                                        <div class="tags">
+                                            {tags.map((tag) => <span class="tag">{tag}</span>)}
+                                        </div>
+                                    </div>
+                                    <a href={repo} target="_blank" rel="noopener noreferrer" class="btn btn-ghost" aria-label={item.githubLabel}>GitHub
+                                        <Icon name="arrowUpRight" size={15} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+
+        <div class="dots">
+            {projects.map((_, i) => (
+                <button class:list={['dot', { on: i === 0 }]} aria-label={copy.goTo.replace('{n}', String(i + 1))}></button>
+            ))}
+        </div>
+    </div>
+</section>

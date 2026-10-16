@@ -1,0 +1,122 @@
+---
+import '../styles/global.css';
+import faviconSvg from '../assets/favicon.svg?url';
+import favicon32 from '../assets/favicon-32.png?url';
+import touchIcon from '../assets/apple-touch-icon.png?url';
+import { t, langs, localeSettings, pageUrl, defaultHreflang, type Lang } from '../i18n';
+import { SITE_URL, OG_IMAGE, person, projects } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { meta, projects: projectCopy } = t(lang);
+const url = pageUrl(lang);
+const otherLocales = langs.filter((l) => l !== lang);
+const ref = (id: string) => ({ '@id': `${SITE_URL}/#${id}` });
+
+// Structured data: tells Google this site is about the person "Isaac Cabrera"
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+        {
+            '@type': 'Person',
+            '@id': `${SITE_URL}/#person`,
+            name: person.name,
+            givenName: person.givenName,
+            familyName: person.familyName,
+            url: `${SITE_URL}/`,
+            image: OG_IMAGE,
+            jobTitle: person.jobTitle,
+            description: meta.personDescription,
+            email: `mailto:${person.email}`,
+            address: person.address,
+            affiliation: person.affiliation,
+            alumniOf: person.alumniOf,
+            knowsAbout: person.knowsAbout,
+            knowsLanguage: person.knowsLanguage,
+            sameAs: person.sameAs,
+        },
+        {
+            '@type': 'WebSite',
+            '@id': `${SITE_URL}/#website`,
+            url: `${SITE_URL}/`,
+            name: person.name,
+            inLanguage: langs,
+            author: ref('person'),
+        },
+        {
+            '@type': 'ProfilePage',
+            '@id': `${url}#profile`,
+            url,
+            name: meta.profileName,
+            inLanguage: lang,
+            isPartOf: ref('website'),
+            mainEntity: ref('person'),
+        },
+        ...projects.map((p) => ({
+            '@type': 'SoftwareSourceCode',
+            '@id': `${SITE_URL}/#project-${p.id}`,
+            name: projectCopy.items[p.id].title,
+            description: projectCopy.items[p.id].description,
+            codeRepository: p.repo,
+            programmingLanguage: p.language,
+            keywords: p.tags.join(', '),
+            author: ref('person'),
+        })),
+    ],
+};
+---
+
+<!DOCTYPE html>
+<html lang={localeSettings[lang].htmlLang}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description}>
+    <meta name="author" content={person.name}>
+    <meta name="theme-color" content="#0b0f17">
+
+    <!-- SEO: canonical + language alternates -->
+    <link rel="canonical" href={url}>
+    {langs.map((l) => <link rel="alternate" hreflang={l} href={pageUrl(l)}>)}
+    <link rel="alternate" hreflang="x-default" href={pageUrl(defaultHreflang)}>
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content={person.name}>
+    <meta property="og:title" content={meta.ogTitle}>
+    <meta property="og:description" content={meta.ogDescription}>
+    <meta property="og:url" content={url}>
+    <meta property="og:image" content={OG_IMAGE}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content={meta.ogImageAlt}>
+    <meta property="og:locale" content={localeSettings[lang].ogLocale}>
+    {otherLocales.map((l) => <meta property="og:locale:alternate" content={localeSettings[l].ogLocale}>)}
+    <meta property="profile:first_name" content={person.givenName}>
+    <meta property="profile:last_name" content={person.familyName}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={meta.twitterTitle}>
+    <meta name="twitter:description" content={meta.twitterDescription}>
+    <meta name="twitter:image" content={OG_IMAGE}>
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32}>
+    <link rel="icon" type="image/svg+xml" href={faviconSvg}>
+    <link rel="apple-touch-icon" href={touchIcon}>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <slot />
+    <script>
+        import '../scripts/main.js';
+    </script>
+</body>
+</html>

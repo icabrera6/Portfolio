@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import SectionLabel from './SectionLabel.astro';
+import { t, type Lang } from '../i18n';
+import { focusAreas } from '../data/site';
+
+interface Props {
+    lang: Lang;
+}
+const { lang } = Astro.props;
+const { about } = t(lang);
+---
+
+<section id="about" class="section">
+    <div class="wrap">
+        <SectionLabel index={1} text={about.label} />
+        <div class="about-grid">
+            <div>
+                <h2 class="h2">{about.title}</h2>
+                {about.paragraphs.map((p) => <p class="muted">{p}</p>)}
+            </div>
+            <div class="about-cards">
+                {focusAreas.map(({ id, icon }) => (
+                    <div class="tcard about-card">
+                        <div class="icon-box"><Icon name={icon} size={19} /></div>
+                        <h3>{about.cards[id].title}</h3>
+                        <p class="muted">{about.cards[id].text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
