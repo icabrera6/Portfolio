@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaac Cabrera Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --canvas: #111216;
+        --ink: #0B0F17;
+        --midnight: #1E3A6E;
+        --ion: #8EC9FF;
+        --ivory: #EFEDE6;
+        --steel: #6B7587;
+        --stone: #CFCBC1;
+        --serif: 'Source Serif 4', Georgia, serif;
+        --sans: 'Public Sans', Helvetica, Arial, sans-serif;
+        --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--canvas); }
+    body {
+        width: 1600px;
+        height: 1000px;
+        overflow: hidden;
+        font-family: var(--sans);
+        color: var(--ivory);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .board {
+        position: relative;
+        width: 1600px;
+        height: 1000px;
+        padding: 30px 40px 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    .board::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: .07;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #7d8494;
+    }
+    .head b { color: var(--ivory); font-weight: 500; }
+    .head .sep { color: var(--ion); margin: 0 10px; }
+
+    .grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 14px;
+    }
+    .p {
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        background: var(--ink);
+    }
+    .lbl {
+        position: absolute;
+        top: 18px;
+        left: 20px;
+        z-index: 5;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: #6f7789;
+    }
+    .lbl i { font-style: normal; color: var(--ion); margin-right: 8px; }
+    .num {
+        position: absolute;
+        right: 20px;
+        bottom: 16px;
+        z-index: 5;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .12em;
+        color: #4d5464;
+    }
+
+    .mk { display: block; color: var(--ivory); --dot: var(--ion); }
+    .mk.on-light { color: var(--ink); --dot: var(--midnight); }
+
+    /* 01 — Cover */
+    .p-cover {
+        background:
+            radial-gradient(120% 90% at 30% 50%, rgba(30, 58, 110, .35), transparent 60%),
+            var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .lockup { display: flex; align-items: center; gap: 22px; margin-top: 8px; }
+    .lockup .mk { width: 92px; height: 92px; }
+    .wm {
+        font-family: var(--serif);
+        font-size: 38px;
+        font-weight: 600;
+        letter-spacing: -.02em;
+        line-height: 1;
+    }
+    .wm-sub {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: .06em;
+        color: #8a93a5;
+    }
+    .p-cover .num { color: #586074; }
+
+    /* 02 — Construction */
+    .p-cons { background: #0D1526; }
+    .p-cons svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .p-cons .lbl { color: #5f7396; }
+
+    /* 03 — Web */
+    .p-web { background: var(--midnight); }
+    .p-web .lbl { color: #9db3d8; }
+    .browser {
+        position: absolute;
+        left: 34px;
+        top: 50px;
+        width: 520px;
+        height: 300px;
+        background: var(--ink);
+        border-radius: 9px;
+        border: 1px solid rgba(255, 255, 255, .08);
+        box-shadow: 0 30px 60px rgba(4, 8, 20, .55);
+        overflow: hidden;
+    }
+    .b-top {
+        height: 30px;
+        display: flex;
+        align-items: flex-end;
+        gap: 14px;
+        padding: 0 12px;
+        background: #070a10;
+    }
+    .dots { display: flex; gap: 6px; align-self: center; }
+    .dots i { width: 8px; height: 8px; border-radius: 50%; background: #2a303c; }
+    .tab {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        height: 23px;
+        padding: 0 14px 0 10px;
+        border-radius: 7px 7px 0 0;
+        background: #141a25;
+        font-size: 10.5px;
+        color: #c9ccd3;
+    }
+    .tab .mk { width: 12px; height: 12px; }
+    .b-url {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px;
+        background: #141a25;
+        border-bottom: 1px solid rgba(255, 255, 255, .05);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: #c9ccd3;
+    }
+    .b-url .pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 20px;
+        padding: 0 10px;
+        width: 100%;
+        border-radius: 5px;
+        background: #0b0f17;
+    }
+    .b-url svg { width: 9px; height: 10px; }
+    .b-url .dim { color: #5b6273; }
+    .b-page { padding: 14px 22px; width: 448px; }
+    .b-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: #c9ccd3;
+    }
+    .b-nav .l { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+    .b-nav .l .mk { width: 15px; height: 15px; }
+    .b-nav .l span { color: var(--ion); }
+    .b-nav .r { color: #5b6273; letter-spacing: .06em; }
+    .b-nav .r b { color: var(--ion); font-weight: 500; }
+    .b-hero { margin-top: 26px; }
+    .b-hero .kick { font-family: var(--mono); font-size: 11px; color: var(--ion); }
+    .b-hero h3 {
+        margin-top: 10px;
+        font-family: var(--serif);
+        font-size: 36px;
+        font-weight: 650;
+        letter-spacing: -.02em;
+        line-height: 1;
+    }
+    .b-hero .row { margin-top: 18px; display: flex; gap: 8px; }
+    .btn {
+        height: 26px;
+        padding: 0 12px;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .btn.pri { background: var(--ivory); color: var(--ink); }
+    .btn.ghost { border: 1px solid #2a3140; color: #c9ccd3; }
+
+    /* 04 — Essence */
+    .p-ess { background: var(--ivory); color: var(--ink); }
+    .p-ess .lbl { color: #8b8778; }
+    .p-ess .lbl i { color: var(--midnight); }
+    .p-ess .num { color: #a9a597; }
+    .tag {
+        position: absolute;
+        left: 34px;
+        bottom: 46px;
+        font-family: var(--serif);
+        font-size: 50px;
+        font-weight: 600;
+        letter-spacing: -.025em;
+        line-height: 1.02;
+    }
+    .tag em { font-style: italic; font-weight: 500; color: var(--midnight); }
+    .tag-es {
+        position: absolute;
+        left: 36px;
+        bottom: 22px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .04em;
+        color: #8b8778;
+    }
+
+    /* 05 — Color */
+    .p-col { display: flex; background: none; }
+    .sw {
+        position: relative;
+        height: 100%;
+        padding: 46px 12px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .06em;
+    }
+    .sw b { font-weight: 500; font-size: 11px; letter-spacing: .02em; }
+    .sw span { opacity: .7; }
+    .sw.ink { flex: 3; background: var(--ink); color: var(--ivory); box-shadow: inset -1px 0 0 rgba(255,255,255,.06); }
+    .sw.mid { flex: 2; background: var(--midnight); color: var(--ivory); }
+    .sw.stl { flex: 1.25; background: var(--steel); color: var(--ivory); }
+    .sw.ivr { flex: 1.6; background: var(--ivory); color: var(--ink); }
+    .sw.ion { flex: .95; background: var(--ion); color: var(--ink); }
+    .p-col .lbl { color: #6f7789; }
+
+    /* 06 — Type */
+    .p-type { background: #141820; }
+    .aa {
+        position: absolute;
+        left: 30px;
+        bottom: 18px;
+        font-family: var(--serif);
+        font-size: 150px;
+        font-weight: 600;
+        letter-spacing: -.04em;
+        line-height: 1;
+        color: var(--ivory);
+    }
+    .aa em { font-style: italic; font-weight: 400; color: var(--ion); }
+    .faces {
+        position: absolute;
+        right: 26px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        width: 190px;
+    }
+    .face { border-top: 1px solid #2a3040; padding-top: 9px; }
+    .face .n { font-size: 17px; color: var(--ivory); line-height: 1.1; }
+    .face .r {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #6f7789;
+    }
+    .f-serif { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; }
+    .f-sans { font-family: var(--sans); font-weight: 600; }
+    .f-mono { font-family: var(--mono); font-weight: 500; font-size: 15px !important; }
+
+    /* 07 — Print */
+    .p-print {
+        background:
+            radial-gradient(90% 80% at 60% 40%, #d9d6cd, transparent 70%),
+            var(--stone);
+    }
+    .p-print .lbl { color: #7f7b70; }
+    .p-print .lbl i { color: var(--midnight); }
+    .p-print .num { color: #9d998d; }
+    .card {
+        position: absolute;
+        width: 236px;
+        height: 148px;
+        border-radius: 5px;
+    }
+    .card.back {
+        left: 38px;
+        top: 58px;
+        transform: rotate(-7deg);
+        background: var(--ink);
+        box-shadow: 0 22px 34px rgba(40, 34, 24, .32), 0 2px 4px rgba(40, 34, 24, .2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card.back .mk { width: 58px; height: 58px; }
+    .card.front {
+        left: 218px;
+        top: 104px;
+        transform: rotate(5deg);
+        background: #f6f4ee;
+        color: var(--ink);
+        box-shadow: 0 26px 40px rgba(40, 34, 24, .34), 0 2px 5px rgba(40, 34, 24, .18);
+        padding: 18px 20px;
+    }
+    .card.front .mk { width: 22px; height: 22px; }
+    .card.front .nm {
+        position: absolute;
+        left: 20px;
+        bottom: 34px;
+        font-family: var(--serif);
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -.01em;
+    }
+    .card.front .ro {
+        position: absolute;
+        left: 20px;
+        bottom: 18px;
+        font-family: var(--mono);
+        font-size: 8.5px;
+        letter-spacing: .04em;
+        color: #6a6659;
+    }
+    .card.front .ro span { color: var(--midnight); }
+
+    /* 08 — Image */
+    .p-img { background: #05070c; }
+    .p-img canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .p-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+        pointer-events: none;
+    }
+    .p-img::before {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 70px;
+        z-index: 4;
+        background: linear-gradient(to top, rgba(5, 7, 12, .92), transparent);
+    }
+    .p-img .lbl { color: #8090ad; }
+    .coord {
+        position: absolute;
+        left: 20px;
+        bottom: 16px;
+        z-index: 5;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .1em;
+        color: #b9c6dc;
+    }
+    .coord span { color: #66748f; margin-left: 10px; }
+    .p-img .mk { position: absolute; right: 20px; top: 16px; width: 20px; height: 20px; z-index: 5; }
+
+    /* 09 — System */
+    .p-sys { background: #0f1218; }
+    .term {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 46px;
+        border-radius: 7px;
+        background: #07090e;
+        border: 1px solid #1f2430;
+        overflow: hidden;
+    }
+    .term-top {
+        height: 24px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 6px;
+        border-bottom: 1px solid #181c26;
+    }
+    .term-top i { width: 7px; height: 7px; border-radius: 50%; background: #262b37; }
+    .term-top span { margin-left: auto; margin-right: auto; font-family: var(--mono); font-size: 9.5px; color: #555c6c; transform: translateX(-14px); }
+    .term pre {
+        padding: 11px 14px 12px;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.75;
+        color: #c9ccd3;
+    }
+    .term .pr { color: #5b6273; }
+    .term .ok { color: var(--ion); }
+    .term .mu { color: #6f7789; }
+    .term .cur { display: inline-block; width: 7px; height: 13px; background: var(--ion); vertical-align: -2px; }
+    .ramp {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        bottom: 16px;
+        display: flex;
+        align-items: flex-end;
+        gap: 18px;
+    }
+    .ramp .mk:nth-child(1) { width: 34px; height: 34px; }
+    .ramp .mk:nth-child(2) { width: 24px; height: 24px; }
+    .ramp .mk:nth-child(3) { width: 16px; height: 16px; }
+    .ramp .mk:nth-child(4) { width: 12px; height: 12px; }
+    .chip {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        height: 22px;
+        padding: 0 10px;
+        border-radius: 99px;
+        border: 1px solid #252b38;
+        font-family: var(--mono);
+        font-size: 10px;
+        color: #aab1bf;
+    }
+    .chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ion); box-shadow: 0 0 8px var(--ion); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <!-- iC mark: a ring with one horizontal gate (C) around a lowercase i whose dot is the core -->
+        <symbol id="mark" viewBox="0 0 120 120">
+            <path fill="currentColor" d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/>
+            <rect fill="currentColor" x="47" y="56" width="16" height="30"/>
+            <circle fill="var(--dot)" cx="55" cy="42.5" r="9"/>
+        </symbol>
+        <symbol id="lock" viewBox="0 0 9 10">
+            <rect x=".5" y="4" width="8" height="5.5" rx="1" fill="currentColor"/>
+            <path d="M2.3 4V3a2.2 2.2 0 0 1 4.4 0v1" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        </symbol>
+    </defs>
+</svg>
+
+<div class="board">
+    <div class="head">
+        <div><b>Isaac Cabrera</b><span class="sep">/</span>Identity System</div>
+        <div>Brand Guidelines<span class="sep">/</span>v1.0<span class="sep">/</span>2026</div>
+    </div>
+
+    <div class="grid">
+
+        <!-- 01 Mark -->
+        <div class="p p-cover">
+            <span class="lbl"><i>01</i>Mark</span>
+            <div class="lockup">
+                <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <div>
+                    <div class="wm">Isaac Cabrera</div>
+                    <div class="wm-sub">backend · cloud · security</div>
+                </div>
+            </div>
+            <span class="num">icabrera-portfolio.com</span>
+        </div>
+
+        <!-- 02 Construction -->
+        <div class="p p-cons">
+            <span class="lbl"><i>02</i>Construction</span>
+            <svg id="cons" viewBox="0 0 497 283" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <!-- 03 Web -->
+        <div class="p p-web">
+            <span class="lbl"><i>03</i>Web</span>
+            <div class="browser">
+                <div class="b-top">
+                    <div class="dots"><i></i><i></i><i></i></div>
+                    <div class="tab"><svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>Isaac Cabrera</div>
+                </div>
+                <div class="b-url">
+                    <div class="pill"><svg style="color:#6f7789"><use href="#lock"/></svg>icabrera-portfolio.com<span class="dim">/</span></div>
+                </div>
+                <div class="b-page">
+                    <div class="b-nav">
+                        <div class="l"><svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>isaac.cabrera<span>_</span></div>
+                        <div class="r"><b>EN</b> / ES</div>
+                    </div>
+                    <div class="b-hero">
+                        <div class="kick">// backend · cloud · security</div>
+                        <h3>Isaac Cabrera</h3>
+                        <div class="row"><span class="btn pri">Get in touch</span><span class="btn ghost">View projects</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 Essence -->
+        <div class="p p-ess">
+            <span class="lbl"><i>04</i>Essence</span>
+            <div class="tag">The part<br>you <em>don’t</em> see.</div>
+            <div class="tag-es">— la parte que no se ve</div>
+        </div>
+
+        <!-- 05 Color -->
+        <div class="p p-col">
+            <span class="lbl"><i>05</i>Color</span>
+            <div class="sw ink"><b>Ink</b><span>#0B0F17</span></div>
+            <div class="sw mid"><b>Midnight</b><span>#1E3A6E</span></div>
+            <div class="sw stl"><b>Steel</b><span>#6B7587</span></div>
+            <div class="sw ivr"><b>Ivory</b><span>#EFEDE6</span></div>
+            <div class="sw ion"><b>Ion</b><span>#8EC9FF</span></div>
+        </div>
+
+        <!-- 06 Type -->
+        <div class="p p-type">
+            <span class="lbl"><i>06</i>Type</span>
+            <div class="aa">A<em>a</em></div>
+            <div class="faces">
+                <div class="face"><div class="n f-serif">Source Serif 4</div><div class="r">Display</div></div>
+                <div class="face"><div class="n f-sans">Public Sans</div><div class="r">Interface</div></div>
+                <div class="face"><div class="n f-mono">IBM Plex Mono</div><div class="r">System</div></div>
+            </div>
+        </div>
+
+        <!-- 07 Print -->
+        <div class="p p-print">
+            <span class="lbl"><i>07</i>Print</span>
+            <div class="card back"><svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg></div>
+            <div class="card front">
+                <svg class="mk on-light" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <div class="nm">Isaac Cabrera</div>
+                <div class="ro">backend &amp; cloud <span>·</span> icabrerar06@gmail.com</div>
+            </div>
+        </div>
+
+        <!-- 08 Image -->
+        <div class="p p-img">
+            <canvas id="halftone"></canvas>
+            <span class="lbl"><i>08</i>Image</span>
+            <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+            <div class="coord">53.96° N · 1.08° W<span>above the deck</span></div>
+        </div>
+
+        <!-- 09 System -->
+        <div class="p p-sys">
+            <span class="lbl"><i>09</i>System</span>
+            <div class="term">
+                <div class="term-top"><i></i><i></i><i></i><span>zsh — portfolio</span></div>
+<pre><span class="pr">~/portfolio $</span> git push origin main
+<span class="ok">✓</span> build       <span class="mu">dist/ ready</span>
+<span class="ok">✓</span> sync        <span class="mu">origin · private</span>
+<span class="ok">✓</span> invalidate  <span class="mu">edge cache</span>
+<span class="pr">~/portfolio $</span> <span class="cur"></span></pre>
+            </div>
+            <div class="ramp">
+                <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <svg class="mk" viewBox="0 0 120 120"><use href="#mark"/></svg>
+                <span class="chip">live · one way in</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* ---------- 02 Construction drawing ---------- */
+(function () {
+    const svg = document.getElementById('cons');
+    const ns = 'http://www.w3.org/2000/svg';
+    const S = 1.75, OX = 205 - 60 * S, OY = 150 - 60 * S;   // mark centre sits at (205, 150)
+    const X = v => OX + v * S, Y = v => OY + v * S;
+    const line = 'rgba(142, 201, 255, .55)', faint = 'rgba(142, 201, 255, .12)', mid = 'rgba(142, 201, 255, .28)';
+
+    function el(tag, attrs, parent = svg) {
+        const e = document.createElementNS(ns, tag);
+        for (const k in attrs) e.setAttribute(k, attrs[k]);
+        parent.appendChild(e);
+        return e;
+    }
+    function text(x, y, str, opts = {}) {
+        const t = el('text', {
+            x, y,
+            fill: opts.fill || '#8fb4e6',
+            'font-family': 'IBM Plex Mono, monospace',
+            'font-size': opts.size || 9.5,
+            'letter-spacing': '.08em',
+            'text-anchor': opts.anchor || 'start'
+        });
+        t.textContent = str;
+    }
+
+    // 8-unit module grid across the 120u square
+    for (let u = 0; u <= 120; u += 8) {
+        el('line', { x1: X(u), y1: Y(0), x2: X(u), y2: Y(120), stroke: faint, 'stroke-width': .6 });
+        el('line', { x1: X(0), y1: Y(u), x2: X(120), y2: Y(u), stroke: faint, 'stroke-width': .6 });
+    }
+
+    // ghosted fill of the mark
+    const g = el('g', { transform: `translate(${OX} ${OY}) scale(${S})` });
+    el('path', { d: 'M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z', fill: 'rgba(239, 237, 230, .13)' }, g);
+    el('rect', { x: 47, y: 56, width: 16, height: 30, fill: 'rgba(239, 237, 230, .13)' }, g);
+    el('circle', { cx: 55, cy: 42.5, r: 9, fill: '#8EC9FF' }, g);
+
+    // construction circles
+    el('circle', { cx: X(60), cy: Y(60), r: 52 * S, fill: 'none', stroke: line, 'stroke-width': 1 });
+    el('circle', { cx: X(60), cy: Y(60), r: 36 * S, fill: 'none', stroke: line, 'stroke-width': 1 });
+    el('circle', { cx: X(60), cy: Y(60), r: 44 * S, fill: 'none', stroke: mid, 'stroke-width': .7, 'stroke-dasharray': '2 4' });
+
+    // gate cut lines, extended
+    [40, 80].forEach(v => el('line', { x1: X(-10), y1: Y(v), x2: X(146), y2: Y(v), stroke: line, 'stroke-width': .8, 'stroke-dasharray': '4 3' }));
+    // centre cross + i axis
+    el('line', { x1: X(60), y1: Y(-4), x2: X(60), y2: Y(124), stroke: mid, 'stroke-width': .7 });
+    el('line', { x1: X(-4), y1: Y(60), x2: X(124), y2: Y(60), stroke: mid, 'stroke-width': .7 });
+    el('line', { x1: X(55), y1: Y(14), x2: X(55), y2: Y(108), stroke: line, 'stroke-width': .8, 'stroke-dasharray': '1 3' });
+
+    // corner terminals
+    [[108, 40], [108, 80], [89.93, 40], [89.93, 80]].forEach(([a, b]) =>
+        el('circle', { cx: X(a), cy: Y(b), r: 2.4, fill: '#0D1526', stroke: '#8EC9FF', 'stroke-width': 1 }));
+
+    // dimension: gate height (40u) on the right
+    const dx = X(134);
+    el('line', { x1: dx, y1: Y(40), x2: dx, y2: Y(80), stroke: '#8EC9FF', 'stroke-width': 1 });
+    [40, 80].forEach(v => el('line', { x1: dx - 4, y1: Y(v), x2: dx + 4, y2: Y(v), stroke: '#8EC9FF', 'stroke-width': 1 }));
+    text(dx + 10, Y(58), 'GATE', { fill: '#cfe5ff', size: 9.5 });
+    text(dx + 10, Y(58) + 13, '40u · one way in', { fill: '#6f8fbf', size: 8.5 });
+
+    // dimension: stroke weight (16u) on the left
+    const sy = Y(102);
+    el('line', { x1: X(8), y1: Y(60), x2: X(8), y2: Y(60), stroke: 'none' });
+    el('line', { x1: X(8), y1: Y(60) + 0, x2: X(24), y2: Y(60), stroke: '#8EC9FF', 'stroke-width': 1.2 });
+    [8, 24].forEach(v => el('line', { x1: X(v), y1: Y(60) - 4, x2: X(v), y2: Y(60) + 4, stroke: '#8EC9FF', 'stroke-width': 1 }));
+    text(X(16), Y(60) - 8, '16u', { anchor: 'middle', fill: '#cfe5ff', size: 8.5 });
+
+    // core callout
+    el('line', { x1: X(64), y1: Y(42.5), x2: X(134) - 8, y2: Y(24), stroke: mid, 'stroke-width': .8 });
+    el('circle', { cx: X(134) - 8, cy: Y(24), r: 1.6, fill: '#8EC9FF' });
+    text(X(134) + 2, Y(24) + 3, 'CORE', { fill: '#cfe5ff', size: 9.5 });
+    text(X(134) + 2, Y(24) + 16, 'Ø18 · i dot', { fill: '#6f8fbf', size: 8.5 });
+
+    // radii
+    text(X(60) - 52 * S * .72 - 4, Y(60) + 52 * S * .72 + 14, 'R52', { fill: '#6f8fbf', size: 8.5, anchor: 'end' });
+    text(X(60) + 36 * S * .5 - 8, Y(60) + 36 * S * .87 - 4, 'R36', { fill: '#6f8fbf', size: 8.5, anchor: 'end' });
+})();
+
+/* ---------- 08 Halftone: cloud deck at dusk, ridge breaking through ---------- */
+(function () {
+    const cv = document.getElementById('halftone');
+    const box = cv.parentElement.getBoundingClientRect();
+    const W = box.width, H = box.height, dpr = 2;
+    cv.width = W * dpr; cv.height = H * dpr;
+    const ctx = cv.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    // value noise
+    function hash(x, y) {
+        let h = x * 374761393 + y * 668265263;
+        h = (h ^ (h >>> 13)) * 1274126177;
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+    }
+    function smooth(t) { return t * t * (3 - 2 * t); }
+    function noise(x, y) {
+        const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+        const a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
+        const u = smooth(xf), v = smooth(yf);
+        return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    }
+    function fbm(x, y) {
+        let s = 0, amp = .5, f = 1;
+        for (let i = 0; i < 5; i++) { s += amp * noise(x * f, y * f); f *= 2.03; amp *= .5; }
+        return s;
+    }
+
+    const horizon = H * .5;
+    const sunX = W * .7, sunY = horizon - H * .02;
+    function ridge(x) {
+        // a far ridge on the left that breaks through the deck
+        const u = x / W;
+        const peak = Math.max(0, 1 - Math.abs(u - .2) / (u < .2 ? .2 : .3));
+        const peak2 = Math.max(0, 1 - Math.abs(u - .43) / .12) * .42;
+        const mass = Math.pow(peak, 1.6) + peak2;
+        const rough = (fbm(u * 22, 3) - .5) * 26 + (fbm(u * 70, 7) - .5) * 8;
+        return horizon + 8 - (Math.pow(peak, 1.6) * H * .21 + peak2 * H * .1) - rough * Math.min(1, mass * 1.6);
+    }
+
+    function lum(x, y) {
+        const dxs = (x - sunX) / W, dys = (y - sunY) / H;
+        const sun = Math.exp(-(dxs * dxs * 7 + dys * dys * 22));
+        if (y < horizon) {
+            const t = (horizon - y) / horizon;
+            let L = .5 * Math.pow(1 - t, 1.8) + .75 * sun;
+            const streak = fbm(x / W * 3, y / H * 18);
+            L += Math.max(0, streak - .55) * .5 * (1 - t);
+            if (y > ridge(x)) L = .05 + sun * .1;
+            return Math.min(1, L);
+        }
+        const depth = (y - horizon) / (H - horizon);
+        const z = 1 / (depth + .06);
+        const n = fbm((x / W - .5) * z * 1.4 + 9, z * .9);
+        let L = .18 + n * .75;
+        L *= .55 + .45 * Math.exp(-depth * 1.4);
+        L += sun * .55 * Math.exp(-depth * 2.5);
+        return Math.min(1, L);
+    }
+
+    const step = 5;
+    ctx.fillStyle = '#05070c';
+    ctx.fillRect(0, 0, W, H);
+    const ion = [142, 201, 255], ivory = [239, 237, 230];
+    for (let row = 0, y = 0; y < H + step; row++, y += step * .866) {
+        const off = row % 2 ? step / 2 : 0;
+        for (let x = off; x < W + step; x += step) {
+            const L = lum(x, y);
+            const r = step * .52 * Math.sqrt(L);
+            if (r < .35) continue;
+            const dxs = (x - sunX) / W, dys = (y - sunY) / H;
+            const w = Math.min(1, Math.exp(-(dxs * dxs * 9 + dys * dys * 30)) * 1.3);
+            const c = ion.map((v, i) => Math.round(v + (ivory[i] - v) * w));
+            ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${.55 + L * .45})`;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+})();
+</script>
+</body>
+</html>

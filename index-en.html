@@ -7,7 +7,7 @@
     <title>Isaac Cabrera · Backend &amp; Cloud Developer (AWS) | Portfolio</title>
     <meta name="description" content="Portfolio of Isaac Cabrera, a backend and cloud developer specialising in AWS serverless. Cyber Security student at York St John University.">
     <meta name="author" content="Isaac Cabrera">
-    <meta name="theme-color" content="#fafbfc">
+    <meta name="theme-color" content="#0b0f17">
 
     <!-- SEO: canonical + language alternates -->
     <link rel="canonical" href="https://icabrera-portfolio.com/index-en.html">
@@ -82,8 +82,9 @@
     </script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./src/assets/LogoPortfolio.png">
-    <link rel="apple-touch-icon" href="./src/assets/LogoPortfolio.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/favicon-32.png">
+    <link rel="icon" type="image/svg+xml" href="./src/assets/favicon.svg">
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,7 +103,7 @@
     <!-- Navbar -->
     <nav class="nav">
         <div class="wrap nav-inner">
-            <a href="#hero" class="nav-logo">isaac.cabrera<span>_</span></a>
+            <a href="#hero" class="nav-logo"><svg class="nav-mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/><rect x="47" y="56" width="16" height="30"/><circle class="core" cx="55" cy="42.5" r="9"/></svg>isaac.cabrera<span>_</span></a>
             <div class="nav-links">
                 <a href="#about">About Me</a>
                 <a href="#skills">Skills</a>
@@ -127,7 +128,8 @@
 
     <main>
         <!-- Hero -->
-        <section id="hero" class="hero gridbg">
+        <section id="hero" class="hero">
+            <canvas class="hero-deck" aria-hidden="true"></canvas>
             <div class="wrap hero-inner">
                 <div class="hero-text">
                     <span class="hero-kicker">// backend · cloud · aws</span>
@@ -148,6 +150,17 @@
                 </div>
                 <div class="hero-photo">
                     <div class="photo-ring">
+                        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+                            <g class="ring-guides">
+                                <circle cx="60" cy="60" r="57" stroke-dasharray="1.2 2.4"/>
+                                <line x1="60" y1="-14" x2="60" y2="134"/>
+                                <line x1="-14" y1="60" x2="96" y2="60"/>
+                                <line x1="96" y1="48" x2="150" y2="48" stroke-dasharray="2 2"/>
+                                <line x1="96" y1="72" x2="150" y2="72" stroke-dasharray="2 2"/>
+                            </g>
+                            <path class="ring-arc" d="M110.6 48 A52 52 0 1 0 110.6 72 L107.51 72 A49 49 0 1 1 107.51 48 Z"/>
+                            <g class="ring-nodes"><circle cx="110.6" cy="48" r="1.3"/><circle cx="110.6" cy="72" r="1.3"/></g>
+                        </svg>
                         <img src="./src/assets/pfp.webp" alt="Isaac Cabrera" width="300" height="300" fetchpriority="high">
                         <span class="photo-tag">status: learning</span>
                     </div>
@@ -158,10 +171,10 @@
         <!-- About -->
         <section id="about" class="section">
             <div class="wrap">
-                <span class="label">01 · About Me</span>
+                <span class="label"><b>01</b> · About Me</span>
                 <div class="about-grid">
                     <div>
-                        <h2 class="h2" style="margin-top: 0;">Driven by curiosity</h2>
+                        <h2 class="h2">Driven by curiosity</h2>
                         <p class="muted">I have completed my Higher Vocational Training in Multi-Platform Application Development and I'm currently studying for a BSc (Hons) in Cyber Security at York St John University. Over these years I've grown interested in Python development, data management with SQL and the wide range of services offered by AWS. I'm planning several personal and academic projects to reinforce and expand my knowledge of technologies that are valuable in today's market.</p>
                         <p class="muted">I consider myself a curious, proactive person eager to learn. I enjoy picking up new technologies and applying them to my projects.</p>
                     </div>
@@ -194,9 +207,10 @@
         <!-- Skills -->
         <section id="skills" class="section section-alt">
             <div class="wrap">
-                <span class="label">02 · Technical Skills</span>
+                <span class="label"><b>02</b> · Technical Skills</span>
                 <h2 class="h2">Current stack</h2>
                 <div class="skills-grid">
+                    <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
                     <div class="skill-col">
                         <div class="skill-head"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg><h3>Backend</h3></div>
                         <ul>
@@ -236,7 +250,7 @@
             <div class="wrap">
                 <div class="proj-head">
                     <div>
-                        <span class="label">03 · Featured Projects</span>
+                        <span class="label"><b>03</b> · Featured Projects</span>
                         <h2 class="h2">Recent work</h2>
                     </div>
                     <div class="proj-controls">
@@ -254,8 +268,8 @@
                     <div id="slider-track" class="slider-track">
                         <div class="slide">
                             <div class="tcard proj-card">
-                                <div class="proj-img gridbg">
-                                    <img src="./src/assets/Diagrama_Portfolio_AWS.png" alt="Portfolio AWS Cloud Architecture" loading="lazy">
+                                <div class="proj-img">
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Diagrama_Portfolio_AWS.png" alt="Portfolio AWS Cloud Architecture" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
@@ -275,8 +289,8 @@
                         </div>
                         <div class="slide">
                             <div class="tcard proj-card">
-                                <div class="proj-img gridbg">
-                                    <img src="./src/assets/Armario.svg" alt="Armario serverless architecture on AWS" loading="lazy">
+                                <div class="proj-img">
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/Armario.svg" alt="Armario serverless architecture on AWS" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
@@ -299,8 +313,8 @@
                         </div>
                         <div class="slide">
                             <div class="tcard proj-card">
-                                <div class="proj-img gridbg">
-                                    <img src="./src/assets/MyNotes.svg" alt="MyNotes serverless architecture on AWS" loading="lazy">
+                                <div class="proj-img">
+                                    <div class="win"><div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="./src/assets/MyNotes.svg" alt="MyNotes serverless architecture on AWS" loading="lazy"></div>
                                 </div>
                                 <div class="proj-body">
                                     <div>
@@ -333,9 +347,10 @@
         </section>
 
         <!-- Education -->
-        <section id="education" class="section section-alt">
+        <section id="education" class="section">
             <div class="wrap">
-                <span class="label">04 · Education</span>
+                <div class="paper">
+                <span class="label"><b>04</b> · Education</span>
                 <h2 class="h2">Studies &amp; certifications</h2>
                 <div class="edu-list">
                     <div class="edu-row">
@@ -371,13 +386,24 @@
                         <span class="edu-org">Self-taught</span>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
         <!-- Contact -->
-        <section id="contact" class="section contact gridbg">
+        <section id="contact" class="section contact">
             <div class="wrap">
-                <span class="label">05 · Contact</span>
+                <div class="contact-panel">
+                    <svg class="contact-mark" viewBox="0 0 120 120" aria-hidden="true">
+                        <g class="cm-guides">
+                            <circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="36"/><circle cx="60" cy="60" r="44" stroke-dasharray="1 2"/>
+                            <line x1="-40" y1="40" x2="160" y2="40" stroke-dasharray="2 1.5"/><line x1="-40" y1="80" x2="160" y2="80" stroke-dasharray="2 1.5"/>
+                            <line x1="60" y1="-40" x2="60" y2="160"/><line x1="55" y1="-40" x2="55" y2="160" stroke-dasharray=".5 1.5"/>
+                        </g>
+                        <g class="cm-fill"><path d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/><rect x="47" y="56" width="16" height="30"/><circle class="core" cx="55" cy="42.5" r="9"/></g>
+                    </svg>
+                    
+                <span class="label"><b>05</b> · Contact</span>
                 <h2 class="h2">Have a project in mind?</h2>
                 <p class="muted contact-sub">I'd love to hear more.</p>
                 <div class="contact-grid">
@@ -402,6 +428,7 @@
                         <span class="d">See my projects</span>
                     </a>
                 </div>
+                </div>
             </div>
         </section>
     </main>
@@ -409,7 +436,7 @@
     <!-- Footer -->
     <footer>
         <div class="wrap footer-inner">
-            <span>© 2026 isaac.cabrera</span>
+            <span class="foot-id"><svg class="nav-mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/><rect x="47" y="56" width="16" height="30"/><circle class="core" cx="55" cy="42.5" r="9"/></svg>© 2026 isaac.cabrera</span>
             <span>backend developer &amp; cloud apprentice</span>
         </div>
     </footer>
