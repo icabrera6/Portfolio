@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mark</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+    /* Square output. Variants: ?variant=dark (for dark backgrounds), light (for light backgrounds),
+       tile (app icon: ink square), avatar (profile picture: survives a circular crop) */
+    html, body, .canvas { width: 100vw; height: 100vh; }
+    .canvas { display: grid; place-items: center; }
+    .mark { width: 84%; height: 84%; }
+
+    .tile { background: var(--ink); }
+    .tile .mark { width: 62%; height: 62%; }
+
+    /* Favicon: rounded ink tile on transparent, mark a little larger so it holds up at 16 px */
+    .favicon { position: relative; }
+    .favicon::before { content: ""; position: absolute; inset: 0; border-radius: 22%; background: var(--ink); }
+    .favicon .mark { position: relative; width: 70%; height: 70%; }
+
+    .avatar {
+        background: radial-gradient(55% 55% at 50% 50%, rgba(30, 58, 110, .65), transparent 75%), var(--ink);
+        --grid: 5vw;
+        --grid-mask: radial-gradient(42% 42% at 50% 50%, #000, transparent 85%);
+    }
+    .avatar .stack { position: relative; width: 56%; height: 56%; }
+    .avatar .stack svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+</style>
+</head>
+<body>
+<div id="c" class="canvas"></div>
+<script type="module">
+    import { mark, MARK_PATHS, params, ready } from './brand.js';
+    const variant = params.get('variant') || 'dark';
+    const c = document.getElementById('c');
+    if (variant === 'avatar') {
+        c.classList.add('avatar', 'grid', 'grain');
+        c.innerHTML = `<div class="stack">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><g class="guides">
+                <circle cx="60" cy="60" r="62" stroke-dasharray="1.2 2.4"/>
+                <line x1="60" y1="-30" x2="60" y2="150"/><line x1="-30" y1="60" x2="150" y2="60"/>
+                <line x1="88" y1="40" x2="160" y2="40" stroke-dasharray="2 2"/><line x1="88" y1="80" x2="160" y2="80" stroke-dasharray="2 2"/>
+            </g></svg>
+            <svg class="mark" viewBox="0 0 120 120" aria-hidden="true">${MARK_PATHS}</svg>
+        </div>`;
+    } else {
+        if (variant === 'tile' || variant === 'favicon') c.classList.add(variant);
+        c.innerHTML = mark(variant === 'light' ? 'on-light' : '');
+    }
+    await ready();
+</script>
+</body>
+</html>

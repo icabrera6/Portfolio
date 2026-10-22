@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LinkedIn banner</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+    /* 1584×396 (LinkedIn's banner size). ?lang=en|es
+       The profile photo covers the bottom-left corner and mobile crops the sides,
+       so copy stays in the centre-right band. */
+    html, body { width: 1584px; height: 396px; }
+    .canvas {
+        width: 1584px;
+        height: 396px;
+        background:
+            radial-gradient(38% 90% at 84% 42%, rgba(30, 58, 110, .62), transparent 72%),
+            var(--ink);
+        --grid: 48px;
+        --grid-mask: radial-gradient(55% 95% at 72% 40%, #000, transparent 85%);
+    }
+    canvas.deck { position: absolute; inset: 0; width: 100%; height: 100%; -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent); }
+
+    .copy { position: absolute; left: 520px; top: 92px; z-index: 2; }
+    .kick { font-family: var(--mono); font-size: 15px; color: var(--ion); letter-spacing: .02em; }
+    .tag {
+        margin-top: 14px;
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 56px;
+        line-height: 1;
+        letter-spacing: -.03em;
+        white-space: nowrap;
+    }
+    .tag em { font-style: normal; color: var(--ion); }
+    .role { margin-top: 18px; font-size: 19px; font-weight: 500; color: var(--sub); }
+    .url { margin-top: 22px; display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 15px; color: var(--sub); }
+    .url .mark { width: 22px; height: 22px; }
+
+    .big { position: absolute; left: 1230px; top: 22px; width: 300px; height: 300px; z-index: 1; overflow: visible; }
+    .big .shape { fill: rgba(239, 237, 230, .1); }
+    .big .core { fill: var(--ion); }
+</style>
+</head>
+<body>
+<div class="canvas grid grain">
+    <canvas class="deck"></canvas>
+    <svg class="big mark" viewBox="0 0 120 120" aria-hidden="true">
+        <g class="guides">
+            <circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="36"/><circle cx="60" cy="60" r="44" stroke-dasharray="1 2"/>
+            <line x1="-50" y1="40" x2="180" y2="40" stroke-dasharray="2 1.5"/><line x1="-50" y1="80" x2="180" y2="80" stroke-dasharray="2 1.5"/>
+            <line x1="60" y1="-30" x2="60" y2="150"/><line x1="55" y1="-30" x2="55" y2="150" stroke-dasharray=".5 1.5"/>
+        </g>
+        <path class="shape" d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/>
+        <rect class="shape" x="47" y="56" width="16" height="30"/>
+        <circle class="core" cx="55" cy="42.5" r="9"/>
+    </svg>
+    <div class="copy" id="copy"></div>
+</div>
+<script type="module">
+    import { mark, params, drawDeck, ready } from './brand.js';
+    const copy = {
+        en: { tag: 'The part you <em>don’t</em> see.', role: 'Backend Developer &amp; Cloud Apprentice' },
+        es: { tag: 'La parte que <em>no</em> se ve.', role: 'Desarrollador Backend &amp; Aprendiz de Cloud' },
+    }[params.get('lang') || 'en'];
+    document.getElementById('copy').innerHTML = `
+        <div class="kick">// backend · cloud · aws</div>
+        <div class="tag">${copy.tag}</div>
+        <div class="role">${copy.role}</div>
+        <div class="url">${mark()}icabrera-portfolio.com</div>`;
+    drawDeck(document.querySelector('canvas.deck'), { horizon: 318, sunX: 1380, step: 6, alpha: [.16, .4] });
+    await ready();
+</script>
+</body>
+</html>

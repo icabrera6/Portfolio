@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lockup</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+    /* Horizontal logo, transparent background. ?variant=dark (ivory, for dark backgrounds) or light (ink).
+       Sized in vh so any 15:4 window gives the same composition. */
+    html, body, .canvas { width: 100vw; height: 100vh; }
+    .canvas { display: flex; align-items: center; justify-content: center; gap: 6vh; }
+    .mark { width: 62vh; height: 62vh; flex-shrink: 0; }
+    .name {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 36vh;
+        line-height: 1;
+        letter-spacing: -.025em;
+        color: var(--ivory);
+        transform: translateY(-1.5vh);
+    }
+    .light .name { color: var(--ink); }
+</style>
+</head>
+<body>
+<div id="c" class="canvas"></div>
+<script type="module">
+    import { mark, params, ready } from './brand.js';
+    const light = params.get('variant') === 'light';
+    const c = document.getElementById('c');
+    if (light) c.classList.add('light');
+    c.innerHTML = `${mark(light ? 'on-light' : '')}<div class="name">Isaac Cabrera</div>`;
+    await ready();
+</script>
+</body>
+</html>
