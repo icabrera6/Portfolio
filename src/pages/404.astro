@@ -4,8 +4,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import '../styles/fonts.css';
 import '../styles/404.css';
-import faviconSvg from '../assets/favicon.svg?url';
-import favicon32 from '../assets/favicon-32.png?url';
+import Favicons from '../components/Favicons.astro';
 import { t } from '../i18n';
 
 const es = t('es').notFound;
@@ -20,8 +19,7 @@ const en = t('en').notFound;
     <title>{es.pageTitle}</title>
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#0b0f17">
-    <link rel="icon" type="image/png" sizes="32x32" href={favicon32}>
-    <link rel="icon" type="image/svg+xml" href={faviconSvg}>
+    <Favicons />
 </head>
 
 <body>

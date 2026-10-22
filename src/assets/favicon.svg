@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <style>
-    .f { fill: #0B0F17; } .d { fill: #1E3A6E; }
-    @media (prefers-color-scheme: dark) { .f { fill: #EFEDE6; } .d { fill: #8EC9FF; } }
-  </style>
-  <path class="f" d="M108 40 A52 52 0 1 0 108 80 L89.93 80 A36 36 0 1 1 89.93 40 Z"/>
-  <rect class="f" x="47" y="56" width="16" height="30"/>
-  <circle class="d" cx="55" cy="42.5" r="9"/>
-</svg>

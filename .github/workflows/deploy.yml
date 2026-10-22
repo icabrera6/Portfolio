@@ -39,29 +39,29 @@ jobs:
       
       - name: Sync files to S3
         run: |
-          aws s3 sync dist/ s3://isaac-cabrera-portfolio \
-            --delete \
-            --cache-control "public,max-age=31536000,immutable" \
-            --exclude "*.html" \
-            --exclude "*.json" \
-            --exclude "*.txt" \
-            --exclude "*.xml"
-          
-          # HTML and other text files: browsers always revalidate (max-age=0), CloudFront keeps
-          # them at the edge (s-maxage) until the invalidation below runs on the next deploy
-          aws s3 sync dist/ s3://isaac-cabrera-portfolio \
-            --exclude "*" \
-            --include "*.html" \
-            --content-type "text/html; charset=utf-8" \
-            --cache-control "public,max-age=0,s-maxage=31536000,must-revalidate"
+          BUCKET=s3://isaac-cabrera-portfolio
+          EDGE="s-maxage=31536000"  # CloudFront keeps files until the invalidation on the next deploy
 
-          aws s3 sync dist/ s3://isaac-cabrera-portfolio \
-            --exclude "*" \
-            --include "*.json" \
-            --include "*.txt" \
-            --include "*.xml" \
-            --cache-control "public,max-age=0,s-maxage=31536000,must-revalidate"
-      
+          # Build assets with a content hash in the name: cached for a year
+          aws s3 sync dist/_astro $BUCKET/_astro --delete \
+            --cache-control "public,max-age=31536000,immutable"
+
+          # Files at stable URLs (favicons, OG image, CV): a day in browsers
+          aws s3 sync dist/ $BUCKET --delete \
+            --exclude "_astro/*" --exclude "*.html" --exclude "*.json" --exclude "*.txt" --exclude "*.xml" \
+            --cache-control "public,max-age=86400,$EDGE"
+
+          # HTML: browsers always revalidate
+          aws s3 sync dist/ $BUCKET --delete \
+            --exclude "*" --include "*.html" \
+            --content-type "text/html; charset=utf-8" \
+            --cache-control "public,max-age=0,$EDGE,must-revalidate"
+
+          # Sitemaps and robots: same as HTML
+          aws s3 sync dist/ $BUCKET --delete \
+            --exclude "*" --include "*.json" --include "*.txt" --include "*.xml" \
+            --cache-control "public,max-age=0,$EDGE,must-revalidate"
+
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \

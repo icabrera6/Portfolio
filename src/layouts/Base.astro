@@ -2,9 +2,7 @@
 import '../styles/global.css';
 import serifFont from '../assets/fonts/source-serif-4-600-latin.woff2?url';
 import sansFont from '../assets/fonts/public-sans-variable-latin.woff2?url';
-import faviconSvg from '../assets/favicon.svg?url';
-import favicon32 from '../assets/favicon-32.png?url';
-import touchIcon from '../assets/apple-touch-icon.png?url';
+import Favicons from '../components/Favicons.astro';
 import { t, langs, localeSettings, pageUrl, defaultHreflang, type Lang } from '../i18n';
 import { SITE_URL, OG_IMAGE, person, projects } from '../data/site';
 
@@ -106,9 +104,7 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <link rel="icon" type="image/png" sizes="32x32" href={favicon32}>
-    <link rel="icon" type="image/svg+xml" href={faviconSvg}>
-    <link rel="apple-touch-icon" href={touchIcon}>
+    <Favicons />
 
     <!-- Fonts used above the fold, preloaded on desktop only: there the <h1> is the LCP and the
          early fonts avoid a layout shift. On mobile the photo is the LCP and keeps the bandwidth. -->
